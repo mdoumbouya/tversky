@@ -1,0 +1,79 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tversky"
+dynamic = ["version"]
+description = 'Official Pytorch Library for Tversky Neural Networks'
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE.txt"}
+license-files = ["LICENSE*", "COPYING*"]
+keywords = ["tversky", "neural network", "similarity", "psychology", "interpretability", "computer vision", "natural language processing", "machine learning", "ml", "nlp", "cv"]
+authors = [
+  { name = "Moussa Koulako Bala Doumbouya", email = "moussa@stanford.edu" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "torch",
+  "torchvision",
+  "numpy",
+  "matplotlib",
+  "scikit-learn",
+  "pyyaml",
+  "tqdm",
+  "build",
+  "twine",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/mdoumbouya/tversky"
+Documentation = "https://github.com/mdoumbouya/tversky#readme"
+Issues = "https://github.com/mdoumbouya/tversky/issues"
+Repository = "https://github.com/mdoumbouya/tversky"
+
+
+[tool.hatch.version]
+path = "src/tversky/__about__.py"
+
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:tversky tests}"
+
+[tool.coverage.run]
+source_pkgs = ["tversky", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/tversky/__about__.py",
+]
+
+[tool.coverage.paths]
+tversky = ["src/tversky", "*/site-packages/tversky"]
+tests = ["tests", "*/tversky/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]

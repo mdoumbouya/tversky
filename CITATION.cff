@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+authors:
+  - family-names: Doumbouya
+    given-names: Moussa Koulako Bala
+  - family-names: Jurafsky
+    given-names: Dan
+  - family-names: Manning
+    given-names: Christopher D
+title: "Tversky Neural Networks: Psychologically Plausible Deep Learning with Differentiable Tversky Similarity"
+preferred-citation:
+  type: conference-paper
+  title: "Tversky Neural Networks: Psychologically Plausible Deep Learning with Differentiable Tversky Similarity"
+  authors:
+    - family-names: Doumbouya
+      given-names: Moussa Koulako Bala
+    - family-names: Jurafsky
+      given-names: Dan
+    - family-names: Manning
+      given-names: Christopher D
+  collection-title: "The Fourteenth International Conference on Learning Representations"
+  year: 2026
+  url: "https://openreview.net/forum?id=koKWoKaMrE"
