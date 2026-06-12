@@ -38,7 +38,6 @@ class MnistNet(nn.Module):
         self.conv4 = nn.Conv2d(12, 12, 3, padding="same")
         self.pool4 = nn.MaxPool2d(2)
 
-
         self.conv5 = nn.Conv2d(12, 12, 3, padding="same")
         self.conv6 = nn.Conv2d(12, 36, 3, padding="same")
 
@@ -54,17 +53,13 @@ class MnistNet(nn.Module):
 
     def forward_conv(self, x):
         x = self.conv2(F.relu(self.conv1(x)))
-        # h2 = x.mean((-2, -1))
         x = self.pool2(x)
 
         x = self.conv4(F.relu(self.conv3(x)))
-        # h4 = x.mean((-2, -1))
         x = self.pool4(x)
 
         x = self.conv6(F.relu(self.conv5(x)))
         x = x.mean((-2, -1))
-
-        #x = torch.concatenate([h4, h6], dim=-1)
 
         return x
 
@@ -74,7 +69,6 @@ class MnistNet(nn.Module):
     
     def compute_salience(self, x):
         x = self.forward_conv(x)
-        # (b, d) @ (f, d).T = (b, f)
         feature_measures = x @ self.tproj.feature_bank.weight.T
         salience_measures = F.relu(feature_measures).sum(-1)
         return salience_measures
