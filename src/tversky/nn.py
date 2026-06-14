@@ -89,7 +89,7 @@ class TverskyProjection(nn.Module):
         return diag_dict
 
 class TverskySimilarity(nn.Module):
-    def __init__(self, embedding_dim, fbank_size, similarity_model, normalize):
+    def __init__(self, embedding_dim, fbank_size, similarity_model, normalize, intersection_reduction="product", difference_reduction="ignorematch"):
         super().__init__()
         self.feature_bank = nn.Embedding(num_embeddings=fbank_size, embedding_dim=embedding_dim)
         # self.prototypes = nn.Embedding(num_embeddings=class_count, embedding_dim=embedding_dim)
@@ -100,6 +100,8 @@ class TverskySimilarity(nn.Module):
         self.threshold = 0.0
         self.similarity_model = similarity_model
         self.normalize = normalize
+        self.intersection_reduction = intersection_reduction
+        self.difference_reduction = difference_reduction
 
     def forward(self, x, y, alpha=None, beta=None, theta=None):
         alpha = self.alpha if alpha is None else alpha
@@ -114,7 +116,9 @@ class TverskySimilarity(nn.Module):
                 alpha=alpha,
                 beta=beta,
                 theta=theta,
-                normalize=self.normalize
+                normalize=self.normalize,
+                intersection_reduction=self.intersection_reduction,
+                difference_reduction=self.difference_reduction
             )
         elif self.similarity_model == 'ratio':
             return similarity_ratio_model(
@@ -124,7 +128,9 @@ class TverskySimilarity(nn.Module):
                 alpha=alpha,
                 beta=beta,
                 theta=theta,
-                normalize=self.normalize
+                normalize=self.normalize,
+                intersection_reduction=self.intersection_reduction,
+                difference_reduction=self.difference_reduction
             )
         else:
             raise ValueError(
