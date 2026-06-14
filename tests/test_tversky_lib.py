@@ -11,6 +11,7 @@ def test_import():
     assert tnn is not None
 
 def test_similarity():
+    import torch
     from tversky import nn as tnn
     sim_layer = tnn.TverskySimilarity(
         embedding_dim=64,
@@ -18,6 +19,10 @@ def test_similarity():
         similarity_model='contrast',
         normalize=False
     )
+    x = torch.randn(4, 64)
+    y = torch.randn(6, 64)
+    out = sim_layer(x, y)
+    assert out.shape == (4, 6)
 
 def test_projection():
     from tversky import nn as tnn

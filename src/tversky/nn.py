@@ -74,13 +74,13 @@ class TverskyProjection(nn.Module):
     def get_diagnostics(self):
         diag_dict = {}
 
-        #for ix in range(self.feature_bank.weight.grad.shape[0]):
-        #    diag_dict[f"diagnostics/gnorms/feature_{ix:03}"] = \
-        #        self.feature_bank.weight.grad[ix].detach().norm()
-        #
-        #for ix in range(self.prototypes.weight.grad.shape[0]):
-        #    diag_dict[f"diagnostics/gnorms/prototype_{ix:03}"] = \
-        #        self.prototypes.weight.grad[ix].detach().norm()
+        for ix in range(self.feature_bank.weight.grad.shape[0]):
+            diag_dict[f"diagnostics/gnorms/feature_{ix:03}"] = \
+                self.feature_bank.weight.grad[ix].detach().norm()
+        
+        for ix in range(self.prototypes.weight.grad.shape[0]):
+            diag_dict[f"diagnostics/gnorms/prototype_{ix:03}"] = \
+                self.prototypes.weight.grad[ix].detach().norm()
 
         diag_dict["diagnostics/theta"] = self.theta.item()
         diag_dict["diagnostics/alpha"] = self.alpha.item()
